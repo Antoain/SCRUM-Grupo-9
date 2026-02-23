@@ -5,7 +5,7 @@ const productos = [
 
 // Referencia al elemento del DOM
 const listaUL = document.getElementById("listaProductos");
-s
+
 function renderizarProductos() {
     // Limpiamos el contenido previo
     listaUL.innerHTML = "";
@@ -28,6 +28,17 @@ function agregarProducto() {
    const nombre = document.getElementById("nombre").value;
    const precio = document.getElementById("precio").value;
 
+   // Validación de campos
+   if (!nombre || !precio) {
+    alert("Por favor, complete ambos campos.");
+    return; 
+   }
+
+   if (isNaN(precio) || Number(precio) <= 0) {
+    alert("Por favor, ingrese un precio válido mayor a 0.");
+    return;
+   } 
+
    const nuevoProducto = {
     nombre: nombre,
     precio: parseFloat(precio)
@@ -36,6 +47,9 @@ function agregarProducto() {
 
    renderizarProductos();
 
+    // Limpiar los campos del formulario
+document.getElementById("nombre").value = "";
+document.getElementById("precio").value = "";
 
 }
 
