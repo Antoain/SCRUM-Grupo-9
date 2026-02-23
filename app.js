@@ -5,14 +5,14 @@ const productos = [
 
 // Referencia al elemento del DOM
 const listaUL = document.getElementById("listaProductos");
-
+s
 function renderizarProductos() {
     // Limpiamos el contenido previo
     listaUL.innerHTML = "";
 
     //Si el array no tiene productos, mostrar mensaje
     if (productos.length === 0) {
-        listaUL.innerHTML = "<li>⚠️ No hay productos disponibles en el inventario.</li>";
+        listaUL.innerHTML = "<li> No hay productos disponibles en el inventario.</li>";
         return;
     }
 
