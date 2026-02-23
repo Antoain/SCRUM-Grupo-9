@@ -23,6 +23,20 @@ function renderizarProductos() {
         listaUL.appendChild(li);
     });
 }
+function agregarProducto() {
 
+   const nombre = document.getElementById("nombre").value;
+   const precio = document.getElementById("precio").value;
+
+   const nuevoProducto = {
+    nombre: nombre,
+    precio: parseFloat(precio)
+   };
+   productos.push(nuevoProducto);
+
+   renderizarProductos();
+
+
+}
 
 renderizarProductos();
