@@ -1,56 +1,102 @@
-// 1. Creamos La lista (esta asi por que falta el de agregar producto)
-const productos = [
-    
-];
+// 1. Creamos La lista
+const productos = [];
 
-// Referencia al elemento del DOM
-const listaUL = document.getElementById("listaProductos");
+// Referencias DOM
+const cuerpoTabla = document.getElementById("cuerpoTabla");
 
 function renderizarProductos() {
-    // Limpiamos el contenido previo
-    listaUL.innerHTML = "";
 
-    //Si el array no tiene productos, mostrar mensaje
+    cuerpoTabla.innerHTML = "";
+
     if (productos.length === 0) {
-        listaUL.innerHTML = "<li> No hay productos disponibles en el inventario.</li>";
+        cuerpoTabla.innerHTML = `
+            <tr>
+                <td colspan="6" class="mensaje">
+                    No hay productos disponibles en el inventario.
+                </td>
+            </tr>
+        `;
         return;
     }
 
-    // No poner manualmente en HTML (Generación dinámica)
-    productos.forEach(producto => {
-        const li = document.createElement("li");
-        li.textContent = `${producto.nombre} - $${producto.precio}`;
-        listaUL.appendChild(li);
+    productos.forEach((producto, index) => {
+
+        const fila = document.createElement("tr");
+
+        fila.innerHTML = `
+            <td>${producto.nombre}</td>
+            <td>${producto.descripcion}</td>
+            <td>${producto.categoria}</td>
+            <td>$${producto.precio.toFixed(2)}</td>
+            <td>${producto.stock}</td>
+            <td class="acciones">
+                <button class="btn-editar" onclick="abrirModal()">
+                    <i class="fa-solid fa-pen"></i> Editar
+                </button>
+                <button class="btn-eliminar">
+                    <i class="fa-solid fa-trash"></i> Eliminar
+                </button>
+            </td>
+        `;
+
+        cuerpoTabla.appendChild(fila);
     });
 }
+
 function agregarProducto() {
 
-   const nombre = document.getElementById("nombre").value;
-   const precio = document.getElementById("precio").value;
+    const nombre = document.getElementById("nombre").value;
+    const descripcion = document.getElementById("descripcion").value;
+    const categoria = document.getElementById("categoria").value;
+    const precio = document.getElementById("precio").value;
+    const stock = document.getElementById("stock").value;
 
-   // Validación de campos
-   if (!nombre || !precio) {
-    alert("Por favor, complete ambos campos.");
-    return; 
-   }
+    if (!nombre || !descripcion || !categoria || !precio || !stock) {
+        alert("Por favor, complete todos los campos.");
+        return;
+    }
 
-   if (isNaN(precio) || Number(precio) <= 0) {
-    alert("Por favor, ingrese un precio válido mayor a 0.");
-    return;
-   } 
+    if (isNaN(precio) || Number(precio) <= 0) {
+        alert("Por favor, ingrese un precio válido mayor a 0.");
+        return;
+    }
 
-   const nuevoProducto = {
-    nombre: nombre,
-    precio: parseFloat(precio)
-   };
-   productos.push(nuevoProducto);
+    if (isNaN(stock) || Number(stock) <= 0) {
+        alert("Por favor, ingrese una cantidad válida mayor a 0.");
+        return;
+    }
 
-   renderizarProductos();
+    const nuevoProducto = {
+        nombre: nombre,
+        categoria: categoria,
+        descripcion: descripcion,
+        precio: parseFloat(precio),
+        stock: parseInt(stock)
+    };
 
-    // Limpiar los campos del formulario
-document.getElementById("nombre").value = "";
-document.getElementById("precio").value = "";
+    productos.push(nuevoProducto);
 
+    renderizarProductos();
+
+    limpiarFormulario();
+    cerrarModal();
+}
+
+function limpiarFormulario() {
+    document.getElementById("nombre").value = "";
+    document.getElementById("descripcion").value = "";
+    document.getElementById("categoria").value = "";
+    document.getElementById("precio").value = "";
+    document.getElementById("stock").value = "";
+}
+
+function abrirModal(modo = "agregar") {
+
+    document.getElementById("modalProducto").style.display = "flex";
+}
+
+function cerrarModal() {
+    document.getElementById("modalProducto").style.display = "none";
 }
 
 renderizarProductos();

@@ -2,19 +2,55 @@
 <html>
 <head>
     <title>Gestión de Productos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <h1>Listado de Productos</h1>
 
-    <div id="formulario">
-        <input type="text" id="nombre" placeholder="Nombre del producto">
-        <input type="number" id="precio" placeholder="Precio">
-        <button onclick="agregarProducto()">Agregar</button>
+    <div class="container">
+        <h1>Listado de Productos</h1>
+
+        <!-- Contenedor superior -->
+        <div class="acciones-superiores">
+            <button class="btn-abrir" onclick="abrirModal()">
+                <i class="fa-solid fa-plus"></i> Agregar Producto
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div id="modalProducto" class="modal">
+            <div class="modal-contenido">
+                <span class="cerrar" onclick="cerrarModal()">&times;</span>
+                <h2 id="tituloModal">Agregar Producto</h2>
+
+                <input type="text" id="nombre" placeholder="Nombre del producto">
+                <input type="text" id="descripcion" placeholder="Descripción del producto">
+                <input type="text" id="categoria" placeholder="Categoría del producto">
+                <input type="number" id="precio" placeholder="Precio del producto">
+                <input type="number" id="stock" placeholder="Stock del producto">
+
+                <button id="btnGuardar" onclick="agregarProducto()">Guardar</button>
+            </div>
+        </div>
+
+        <!-- Contenedor de tabla -->
+        <div class="tabla-contenedor">
+            <table id="tablaProductos">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla"></tbody>
+            </table>
+        </div>
+
     </div>
-
-    <ul id="listaProductos">
-        
-    </ul>
 
     <script src="app.js"></script>
 </body>
