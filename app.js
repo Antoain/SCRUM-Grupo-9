@@ -1,5 +1,6 @@
 // 1. Creamos La lista
 const productos = [];
+let indexEdicion = null; // NUEVO: Variable para saber si estamos editando
 
 // Referencias DOM
 const cuerpoTabla = document.getElementById("cuerpoTabla");
@@ -30,7 +31,7 @@ function renderizarProductos() {
             <td>$${producto.precio.toFixed(2)}</td>
             <td>${producto.stock}</td>
             <td class="acciones">
-                <button class="btn-editar" onclick="abrirModal()">
+                <button class="btn-editar" onclick="prepararEdicion(${index})">
                     <i class="fa-solid fa-pen"></i> Editar
                 </button>
                 <button class="btn-eliminar">
@@ -41,6 +42,24 @@ function renderizarProductos() {
 
         cuerpoTabla.appendChild(fila);
     });
+}
+
+// NUEVA FUNCIÓN: Se ejecuta al presionar "Editar" en la tabla
+function prepararEdicion(index) {
+    const producto = productos[index];
+    
+    // Llenamos el formulario con los datos actuales
+    document.getElementById("nombre").value = producto.nombre;
+    document.getElementById("descripcion").value = producto.descripcion;
+    document.getElementById("categoria").value = producto.categoria;
+    document.getElementById("precio").value = producto.precio;
+    document.getElementById("stock").value = producto.stock;
+
+    // Guardamos el índice para que agregarProducto sepa que estamos editando
+    indexEdicion = index; 
+    
+    // Abrimos el modal
+    document.getElementById("modalProducto").style.display = "flex";
 }
 
 function agregarProducto() {
@@ -66,7 +85,7 @@ function agregarProducto() {
         return;
     }
 
-    const nuevoProducto = {
+    const datosProducto = {
         nombre: nombre,
         categoria: categoria,
         descripcion: descripcion,
@@ -74,7 +93,15 @@ function agregarProducto() {
         stock: parseInt(stock)
     };
 
-    productos.push(nuevoProducto);
+    // CAMBIO AQUÍ: La lógica inteligente
+    if (indexEdicion !== null) {
+        // MODO EDICIÓN: Reemplazamos el producto en la posición guardada
+        productos[indexEdicion] = datosProducto;
+        indexEdicion = null; // Reseteamos la variable para la próxima vez
+    } else {
+        // MODO NUEVO: Lo agregamos al final de la lista
+        productos.push(datosProducto);
+    }
 
     renderizarProductos();
 
@@ -90,8 +117,10 @@ function limpiarFormulario() {
     document.getElementById("stock").value = "";
 }
 
-function abrirModal(modo = "agregar") {
-
+function abrirModal() {
+    // CAMBIO AQUÍ: Si abres el modal desde el botón principal, nos aseguramos de que esté limpio
+    indexEdicion = null;
+    limpiarFormulario();
     document.getElementById("modalProducto").style.display = "flex";
 }
 
