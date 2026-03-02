@@ -1,5 +1,5 @@
 // 1. Creamos La lista
-const productos = [];
+const productos = JSON.parse(localStorage.getItem("productos")) || [];
 let indexEdicion = null; // NUEVO: Variable para saber si estamos editando
 
 // Referencias DOM
@@ -104,6 +104,7 @@ function agregarProducto() {
     }
 
     renderizarProductos();
+    localStorage.setItem("productos", JSON.stringify(productos));
 
     limpiarFormulario();
     cerrarModal();
