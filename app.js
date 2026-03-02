@@ -25,11 +25,15 @@ function renderizarProductos() {
         const fila = document.createElement("tr");
 
         fila.innerHTML = `
+            <td>${producto.id}</td>
             <td>${producto.nombre}</td>
             <td>${producto.descripcion}</td>
             <td>${producto.categoria}</td>
             <td>$${producto.precio.toFixed(2)}</td>
             <td>${producto.stock}</td>
+            <td>
+    <img src="${producto.imagen}" width="60">
+     </td>
             <td class="acciones">
                 <button class="btn-editar" onclick="prepararEdicion(${index})">
                     <i class="fa-solid fa-pen"></i> Editar
@@ -69,6 +73,7 @@ function agregarProducto() {
     const categoria = document.getElementById("categoria").value;
     const precio = document.getElementById("precio").value;
     const stock = document.getElementById("stock").value;
+    const imagen = document.getElementById("imagen").value;
 
     if (!nombre || !descripcion || !categoria || !precio || !stock) {
         alert("Por favor, complete todos los campos.");
@@ -86,11 +91,13 @@ function agregarProducto() {
     }
 
     const datosProducto = {
+        id: Date.now(),
         nombre: nombre,
         categoria: categoria,
         descripcion: descripcion,
         precio: parseFloat(precio),
         stock: parseInt(stock)
+        imagen: imagen 
     };
 
     // CAMBIO AQUÍ: La lógica inteligente
