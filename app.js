@@ -31,9 +31,7 @@ function renderizarProductos() {
             <td>${producto.categoria}</td>
             <td>$${producto.precio.toFixed(2)}</td>
             <td>${producto.stock}</td>
-            <td>
-    <img src="${producto.imagen}" width="60">
-     </td>
+            <td><img src="${producto.imagen}" width="60"></td>
             <td class="acciones">
                 <button class="btn-editar" onclick="prepararEdicion(${index})">
                     <i class="fa-solid fa-pen"></i> Editar
@@ -60,8 +58,10 @@ function prepararEdicion(index) {
     document.getElementById("stock").value = producto.stock;
 
     // Guardamos el índice para que agregarProducto sepa que estamos editando
-    indexEdicion = index; 
+    indexEdicion = index;
     
+    document.getElementById("tituloModal").textContent = "Editar Producto";
+    document.getElementById("btnGuardar").textContent = "Guardar Cambios";
     // Abrimos el modal
     document.getElementById("modalProducto").style.display = "flex";
 }
@@ -96,7 +96,7 @@ function agregarProducto() {
         categoria: categoria,
         descripcion: descripcion,
         precio: parseFloat(precio),
-        stock: parseInt(stock)
+        stock: parseInt(stock),
         imagen: imagen 
     };
 
@@ -129,10 +129,15 @@ function abrirModal() {
     // CAMBIO AQUÍ: Si abres el modal desde el botón principal, nos aseguramos de que esté limpio
     indexEdicion = null;
     limpiarFormulario();
+
+    document.getElementById("tituloModal").textContent = "Agregar Producto";
+    document.getElementById("btnGuardar").textContent = "Guardar";
     document.getElementById("modalProducto").style.display = "flex";
 }
 
 function cerrarModal() {
+    document.getElementById("tituloModal").textContent = "Agregar Producto";
+    document.getElementById("btnGuardar").textContent = "Guardar";
     document.getElementById("modalProducto").style.display = "none";
 }
 
