@@ -30,6 +30,12 @@
                 <input type="number" id="stock" placeholder="Stock del producto">
                 <input type="text" id="imagen" placeholder="Imagen del producto">
 
+                <label>Estado</label>
+                   <select id="estado">
+               <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                  </select>
+
                 <button id="btnGuardar" onclick="agregarProducto()">Guardar</button>
             </div>
         </div>
@@ -46,7 +52,9 @@
                         <th>Precio</th>
                         <th>Stock</th>
                         <th>Imagen</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
+
                     </tr>
                 </thead>
                 <tbody id="cuerpoTabla"></tbody>
