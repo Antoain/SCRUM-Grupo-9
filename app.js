@@ -76,17 +76,29 @@ function agregarProducto() {
     const imagen = document.getElementById("imagen").value;
 
     if (!nombre || !descripcion || !categoria || !precio || !stock) {
-        alert("Por favor, complete todos los campos.");
+        Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Por favor, complete todos los campos.'
+    });
         return;
     }
 
     if (isNaN(precio) || Number(precio) <= 0) {
-        alert("Por favor, ingrese un precio válido mayor a 0.");
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor, ingrese un precio válido mayor a 0.'
+        });
         return;
     }
 
     if (isNaN(stock) || Number(stock) <= 0) {
-        alert("Por favor, ingrese una cantidad válida mayor a 0.");
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor, ingrese una cantidad válida mayor a 0.'
+        });
         return;
     }
 
@@ -105,9 +117,22 @@ function agregarProducto() {
         // MODO EDICIÓN: Reemplazamos el producto en la posición guardada
         productos[indexEdicion] = datosProducto;
         indexEdicion = null; // Reseteamos la variable para la próxima vez
+
+        Swal.fire({
+        icon: 'success',
+        title: 'Producto Actualizado',
+        text: 'El producto se actualizó correctamente'
+
+    });
     } else {
         // MODO NUEVO: Lo agregamos al final de la lista
         productos.push(datosProducto);
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Producto Agregado',
+            text: 'El producto ha sido agregado exitosamente.',
+        })
     }
 
     renderizarProductos();
