@@ -12,7 +12,7 @@ function renderizarProductos() {
     if (productos.length === 0) {
         cuerpoTabla.innerHTML = `
             <tr>
-                <td colspan="6" class="mensaje">
+                <td colspan="9" class="mensaje">
                     No hay productos disponibles en el inventario.
                 </td>
             </tr>
@@ -25,21 +25,25 @@ function renderizarProductos() {
         const fila = document.createElement("tr");
 
         fila.innerHTML = `
-            <td>${producto.id}</td>
-            <td>${producto.nombre}</td>
-            <td>${producto.descripcion}</td>
-            <td>${producto.categoria}</td>
-            <td>$${producto.precio.toFixed(2)}</td>
-            <td>${producto.stock}</td>
-            <td><img src="${producto.imagen}" width="60"></td>
-            <td class="acciones">
-                <button class="btn-editar" onclick="prepararEdicion(${index})">
-                    <i class="fa-solid fa-pen"></i> Editar
-                </button>
-                <button class="btn-eliminar">
-                    <i class="fa-solid fa-trash"></i> Eliminar
-                </button>
-            </td>
+        <td>${producto.id}</td>      
+        <td>${producto.nombre}</td>
+    <td>${producto.descripcion}</td>
+    <td>${producto.categoria}</td>
+    <td>$${producto.precio.toFixed(2)}</td>
+    <td>${producto.stock}</td>
+    <td>
+        <img src="${producto.imagen}" width="60">
+    </td>
+    <td>${producto.estado}</td>
+    <td class="acciones">
+        <button class="btn-editar" onclick="prepararEdicion(${index})">
+            <i class="fa-solid fa-pen"></i> Editar
+        </button>
+        <button class="btn-eliminar">
+            <i class="fa-solid fa-trash"></i> Eliminar
+        </button>
+    </td>
+            
         `;
 
         cuerpoTabla.appendChild(fila);
@@ -56,12 +60,12 @@ function prepararEdicion(index) {
     document.getElementById("categoria").value = producto.categoria;
     document.getElementById("precio").value = producto.precio;
     document.getElementById("stock").value = producto.stock;
+    document.getElementById("imagen").value = "";
+document.getElementById("estado").value = "Activo";
 
     // Guardamos el índice para que agregarProducto sepa que estamos editando
-    indexEdicion = index;
+    indexEdicion = index; 
     
-    document.getElementById("tituloModal").textContent = "Editar Producto";
-    document.getElementById("btnGuardar").textContent = "Guardar Cambios";
     // Abrimos el modal
     document.getElementById("modalProducto").style.display = "flex";
 }
@@ -74,31 +78,20 @@ function agregarProducto() {
     const precio = document.getElementById("precio").value;
     const stock = document.getElementById("stock").value;
     const imagen = document.getElementById("imagen").value;
+    const estado = document.getElementById("estado").value;
 
     if (!nombre || !descripcion || !categoria || !precio || !stock) {
-        Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Por favor, complete todos los campos.'
-    });
+        alert("Por favor, complete todos los campos.");
         return;
     }
 
     if (isNaN(precio) || Number(precio) <= 0) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Por favor, ingrese un precio válido mayor a 0.'
-        });
+        alert("Por favor, ingrese un precio válido mayor a 0.");
         return;
     }
 
     if (isNaN(stock) || Number(stock) <= 0) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Por favor, ingrese una cantidad válida mayor a 0.'
-        });
+        alert("Por favor, ingrese una cantidad válida mayor a 0.");
         return;
     }
 
@@ -109,7 +102,8 @@ function agregarProducto() {
         descripcion: descripcion,
         precio: parseFloat(precio),
         stock: parseInt(stock),
-        imagen: imagen 
+        imagen: imagen,
+        estado: estado
     };
 
     // CAMBIO AQUÍ: La lógica inteligente
@@ -117,22 +111,9 @@ function agregarProducto() {
         // MODO EDICIÓN: Reemplazamos el producto en la posición guardada
         productos[indexEdicion] = datosProducto;
         indexEdicion = null; // Reseteamos la variable para la próxima vez
-
-        Swal.fire({
-        icon: 'success',
-        title: 'Producto Actualizado',
-        text: 'El producto se actualizó correctamente'
-
-    });
     } else {
         // MODO NUEVO: Lo agregamos al final de la lista
         productos.push(datosProducto);
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Producto Agregado',
-            text: 'El producto ha sido agregado exitosamente.',
-        })
     }
 
     renderizarProductos();
@@ -154,15 +135,10 @@ function abrirModal() {
     // CAMBIO AQUÍ: Si abres el modal desde el botón principal, nos aseguramos de que esté limpio
     indexEdicion = null;
     limpiarFormulario();
-
-    document.getElementById("tituloModal").textContent = "Agregar Producto";
-    document.getElementById("btnGuardar").textContent = "Guardar";
     document.getElementById("modalProducto").style.display = "flex";
 }
 
 function cerrarModal() {
-    document.getElementById("tituloModal").textContent = "Agregar Producto";
-    document.getElementById("btnGuardar").textContent = "Guardar";
     document.getElementById("modalProducto").style.display = "none";
 }
 
