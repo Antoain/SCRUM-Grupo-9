@@ -60,12 +60,14 @@ function prepararEdicion(index) {
     document.getElementById("categoria").value = producto.categoria;
     document.getElementById("precio").value = producto.precio;
     document.getElementById("stock").value = producto.stock;
-    document.getElementById("imagen").value = "";
-document.getElementById("estado").value = "Activo";
+    document.getElementById("imagen").value = producto.imagen;
+document.getElementById("estado").value = producto.estado;
 
     // Guardamos el índice para que agregarProducto sepa que estamos editando
     indexEdicion = index; 
-    
+     document.getElementById("tituloModal").textContent = "Editar Producto";
+    document.getElementById("btnGuardar").textContent = "Guardar Cambios";
+
     // Abrimos el modal
     document.getElementById("modalProducto").style.display = "flex";
 }
@@ -81,18 +83,30 @@ function agregarProducto() {
     const estado = document.getElementById("estado").value;
 
     if (!nombre || !descripcion || !categoria || !precio || !stock) {
-        alert("Por favor, complete todos los campos.");
-        return;
+               Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Por favor, complete todos los campos.'
+    });
+    
     }
 
     if (isNaN(precio) || Number(precio) <= 0) {
-        alert("Por favor, ingrese un precio válido mayor a 0.");
-        return;
+         Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor, ingrese un precio válido mayor a 0.'
+        });
+        
     }
 
     if (isNaN(stock) || Number(stock) <= 0) {
-        alert("Por favor, ingrese una cantidad válida mayor a 0.");
-        return;
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor, ingrese una cantidad válida mayor a 0.'
+        });
+      
     }
 
     const datosProducto = {
@@ -111,9 +125,20 @@ function agregarProducto() {
         // MODO EDICIÓN: Reemplazamos el producto en la posición guardada
         productos[indexEdicion] = datosProducto;
         indexEdicion = null; // Reseteamos la variable para la próxima vez
+          Swal.fire({
+        icon: 'success',
+        title: 'Producto Actualizado',
+        text: 'El producto se actualizó correctamente'
+
+    });
     } else {
         // MODO NUEVO: Lo agregamos al final de la lista
         productos.push(datosProducto);
+           Swal.fire({
+            icon: 'success',
+            title: 'Producto Agregado',
+            text: 'El producto ha sido agregado exitosamente.',
+        })
     }
 
     renderizarProductos();
@@ -129,6 +154,8 @@ function limpiarFormulario() {
     document.getElementById("categoria").value = "";
     document.getElementById("precio").value = "";
     document.getElementById("stock").value = "";
+    document.getElementById("imagen").value = "";
+    document.getElementById("estado").value = "Activo";
 }
 
 function abrirModal() {
