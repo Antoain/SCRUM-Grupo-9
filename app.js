@@ -39,7 +39,7 @@ function renderizarProductos() {
         <button class="btn-editar" onclick="prepararEdicion(${index})">
             <i class="fa-solid fa-pen"></i> Editar
         </button>
-        <button class="btn-eliminar">
+       <button class="btn-eliminar" onclick="prepararEliminacion(${index})">
             <i class="fa-solid fa-trash"></i> Eliminar
         </button>
     </td>
@@ -120,6 +120,10 @@ function agregarProducto() {
         estado: estado
     };
 
+
+
+
+
     // CAMBIO AQUÍ: La lógica inteligente
     if (indexEdicion !== null) {
         // MODO EDICIÓN: Reemplazamos el producto en la posición guardada
@@ -147,6 +151,35 @@ function agregarProducto() {
     limpiarFormulario();
     cerrarModal();
 }
+
+
+
+// NUEVA FUNCIÓN: Se ejecuta al presionar "Eliminar" en la tabla
+function prepararEliminacion(index) {
+    // Usamos confirm para evitar accidentes
+    if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+        // Pasamos el index directamente para no depender de variables globales
+        eliminarProducto(index);
+    }
+}
+
+function eliminarProducto(index) {
+    // Eliminamos del array usando el índice
+    productos.splice(index, 1);
+    
+    // Guardamos y actualizamos la vista
+    localStorage.setItem("productos", JSON.stringify(productos));
+    renderizarProductos();
+    
+ 
+        renderizarProductos();
+        
+        //Cerramos la ventana emergente
+        cerrarModal(); 
+        
+        console.log("Producto eliminado y modal cerrado");
+}
+
 
 function limpiarFormulario() {
     document.getElementById("nombre").value = "";
