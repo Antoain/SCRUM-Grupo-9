@@ -23,8 +23,10 @@
                 <span class="cerrar" onclick="cerrarModal()">&times;</span>
                 <h2 id="tituloModal">Agregar Producto</h2>
 
-                <input type="text" id="nombre" placeholder="Nombre del producto">
-                <input type="text" id="descripcion" placeholder="Descripción del producto">
+                <label>Nombre del producto</label>
+                <input type="text" id="nombre" placeholder="Nombre">
+                <label>Descripción del producto</label>
+                <input type="text" id="descripcion" placeholder="Descripción">
 
                 <!-- CATEGORÍA CORREGIDA -->
                 <label>Categoría</label>
@@ -42,9 +44,12 @@
                     <option value="Accesorios">Accesorios</option>
                 </select>
 
-                <input type="number" id="precio" placeholder="Precio del producto">
-                <input type="number" id="stock" placeholder="Stock del producto">
-                <input type="text" id="imagen" placeholder="Imagen del producto">
+                <label>Precio del producto</label>
+                <input type="number" id="precio" placeholder="Precio">
+                <label>Stock del producto</label>
+                <input type="number" id="stock" placeholder="Stock">
+                <label>Imagen del producto</label>
+                <input type="text" id="imagen" placeholder="Imagen (URL)">
 
                 <label>Estado</label>
                 <select id="estado">
@@ -54,9 +59,6 @@
 
                 <button id="btnGuardar" onclick="agregarProducto()">Guardar</button>
                   
-
-                
-
             </div>
         </div>
 
@@ -79,7 +81,6 @@
                 <tbody id="cuerpoTabla"></tbody>
             </table>
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
