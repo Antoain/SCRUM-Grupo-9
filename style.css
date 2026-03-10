@@ -12,18 +12,14 @@ body {
 /* ====== CONTENEDOR PRINCIPAL ====== */
 .container {
     width: 95%;
-    max-width: 1000px;
+    max-width: 1300px;
     background-color: #322763;
     padding: 30px;
     border-radius: 14px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
-th {
-    text-align: center;
-}
-
-td {
+th, td {
     text-align: center;
 }
 
@@ -42,9 +38,9 @@ h1 {
 
 .acciones {
     display: flex;
-    justify-content: center;   /* centra horizontalmente */
+    justify-content: center;
     align-items: center;
-    gap: 15px;                 /* espacio entre botones */
+    gap: 15px;
 }
 
 /* ====== BOTÓN AGREGAR ====== */
@@ -67,32 +63,64 @@ h1 {
 /* ====== CONTENEDOR TABLA ====== */
 .tabla-contenedor {
     border-radius: 12px;
-    overflow: hidden;
     background-color: #1c1a2b;
     box-shadow: inset 0 0 0 1px #2f2b45;
+    overflow-x: auto;
+    max-height: 400px;
 }
 
 /* ====== TABLA ====== */
 #tablaProductos {
     width: 100%;
     border-collapse: collapse;
+    min-width: 1100px;
 }
 
 #tablaProductos th {
     background-color: #2e1a47;
+}
+
+/* ENCABEZADOS */
+#tablaProductos th {
     color: #ffffff;
     padding: 14px;
-    text-align: center;
     font-weight: 600;
 }
 
+/* CELDAS */
 #tablaProductos td {
     padding: 14px;
     border-bottom: 1px solid #2f2b45;
+    vertical-align: middle;
+    word-break: break-word;
 }
 
+/* HOVER FILAS */
 #tablaProductos tr:hover {
     background-color: #2a2540;
+}
+
+/* Evita que el ID se rompa */
+#tablaProductos td:nth-child(1) {
+    white-space: nowrap;
+}
+
+/* Limita descripción */
+#tablaProductos td:nth-child(3) {
+    max-width: 220px;
+}
+
+/* Mantiene botones alineados */
+#tablaProductos td:last-child {
+    white-space: nowrap;
+}
+
+#tablaProductos td:nth-child(5) {
+    white-space: nowrap;
+}
+
+#tablaProductos td:nth-child(8) {
+    white-space: nowrap;
 }
 
 /* ====== BOTONES DE ACCIÓN ====== */
@@ -159,8 +187,16 @@ h1 {
     color: #c8b6ff;
 }
 
-/* ====== INPUTS ====== */
-.modal-contenido input {
+.modal-contenido label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #c8b6ff;
+    margin-bottom: -5px;
+}
+
+/* ====== INPUTS Y SELECT ====== */
+.modal-contenido input,
+.modal-contenido select {
     padding: 10px;
     border-radius: 6px;
     border: 1px solid #3a3654;
@@ -168,9 +204,20 @@ h1 {
     color: #fff;
 }
 
-.modal-contenido input:focus {
+.modal-contenido input:focus,
+.modal-contenido select:focus {
     outline: none;
     border-color: #6c4cff;
+}
+
+.modal-contenido select {
+    appearance: none;
+    cursor: pointer;
+    padding-right: 35px;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23c8b6ff' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
 }
 
 /* ====== BOTÓN MODAL ====== */
@@ -202,4 +249,13 @@ h1 {
 
 .cerrar:hover {
     color: #fff;
+}
+
+/* ====== IMÁGENES TABLA ====== */
+#tablaProductos img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #3a3654;
 }
