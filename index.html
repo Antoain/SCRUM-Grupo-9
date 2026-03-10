@@ -25,16 +25,32 @@
 
                 <input type="text" id="nombre" placeholder="Nombre del producto">
                 <input type="text" id="descripcion" placeholder="Descripción del producto">
-                <input type="text" id="categoria" placeholder="Categoría del producto">
+
+                <!-- CATEGORÍA CORREGIDA -->
+                <label>Categoría</label>
+                <select id="categoria">
+                    <option value="">Seleccione una categoría</option>
+                    <option value="Computadoras de Escritorio">Computadoras de Escritorio</option>
+                    <option value="Laptops">Laptops</option>
+                    <option value="Componentes">Componentes</option>
+                    <option value="Tarjetas Gráficas">Tarjetas Gráficas</option>
+                    <option value="Procesadores">Procesadores</option>
+                    <option value="Memoria RAM">Memoria RAM</option>
+                    <option value="Almacenamiento">Almacenamiento</option>
+                    <option value="Monitores">Monitores</option>
+                    <option value="Periféricos">Periféricos</option>
+                    <option value="Accesorios">Accesorios</option>
+                </select>
+
                 <input type="number" id="precio" placeholder="Precio del producto">
                 <input type="number" id="stock" placeholder="Stock del producto">
                 <input type="text" id="imagen" placeholder="Imagen del producto">
 
                 <label>Estado</label>
-                   <select id="estado">
-               <option value="Activo">Activo</option>
-                  <option value="Inactivo">Inactivo</option>
-                  </select>
+                <select id="estado">
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
 
                 <button id="btnGuardar" onclick="agregarProducto()">Guardar</button>
             </div>
@@ -54,7 +70,6 @@
                         <th>Imagen</th>
                         <th>Estado</th>
                         <th>Acciones</th>
-
                     </tr>
                 </thead>
                 <tbody id="cuerpoTabla"></tbody>
