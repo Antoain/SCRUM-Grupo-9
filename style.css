@@ -4,8 +4,6 @@ body {
     background: linear-gradient(135deg, #1e1b2e, #14121f);
     margin: 0;
     padding: 40px;
-    display: flex;
-    justify-content: center;
     color: #eaeaf0;
 }
 
@@ -13,6 +11,7 @@ body {
 .container {
     width: 95%;
     max-width: 1300px;
+    margin: auto;
     background-color: #322763;
     padding: 30px;
     border-radius: 14px;
@@ -74,7 +73,6 @@ h1 {
 #tablaProductos {
     width: 100%;
     border-collapse: collapse;
-    min-width: 1100px;
 }
 
 #tablaProductos th {
@@ -101,29 +99,6 @@ h1 {
     background-color: #2a2540;
 }
 
-/* Evita que el ID se rompa */
-#tablaProductos td:nth-child(1) {
-    white-space: nowrap;
-}
-
-/* Limita descripción */
-#tablaProductos td:nth-child(3) {
-    max-width: 220px;
-}
-
-/* Mantiene botones alineados */
-#tablaProductos td:last-child {
-    white-space: nowrap;
-}
-
-#tablaProductos td:nth-child(5) {
-    white-space: nowrap;
-}
-
-#tablaProductos td:nth-child(8) {
-    white-space: nowrap;
-}
-
 /* ====== BOTONES DE ACCIÓN ====== */
 .btn-editar {
     padding: 6px 12px;
@@ -138,6 +113,20 @@ h1 {
 
 .btn-editar:hover {
     background-color: #7b5cff;
+}
+
+.btn-ver {
+    padding: 6px 12px;
+    background-color: #1e6be8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-ver:hover {
+    background-color: #4d90ff;
 }
 
 .btn-eliminar {
@@ -261,4 +250,69 @@ h1 {
     object-fit: cover;
     border-radius: 8px;
     border: 2px solid #3a3654;
+}
+
+.estado-activo {
+    color: #1bc726;
+    font-weight: bold;
+}
+
+.estado-inactivo {
+    color: #d43f6c;
+    font-weight: bold;
+}
+
+.acciones button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filtros {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.buscador {
+    position: relative;
+    flex: 1;
+    max-width: 900px;
+    min-width: 0;
+}
+
+.buscador input {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    border-radius: 6px;
+    border: 1px solid #3a3654;
+    background: #1c1a2b;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.buscador i {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    color: #aaa;
+}
+
+.filtro-categoria {
+    width: 250px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #3a3654;
+    background: #1c1a2b;
+    color: #fff;
+
+    appearance: none;
+    cursor: pointer;
+    padding-right: 35px;
+
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23c8b6ff' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
 }

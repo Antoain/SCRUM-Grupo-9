@@ -25,17 +25,18 @@ function renderizarProductos() {
         const fila = document.createElement("tr");
 
         fila.innerHTML = `
-        <td>${producto.id}</td>
         <td>${producto.nombre}</td>
-        <td>${producto.descripcion}</td>
         <td>${producto.categoria}</td>
         <td>$${producto.precio.toFixed(2)}</td>
         <td>${producto.stock}</td>
-        <td>
-            <img src="${producto.imagen}" width="60">
+        <td class="${producto.estado === 'Activo' ? 'estado-activo' : 'estado-inactivo'}">
+            ${producto.estado}
         </td>
-        <td>${producto.estado}</td>
         <td class="acciones">
+            <button class="btn-ver" onclick="verDetalle(${index})">
+                <i class="fa-solid fa-eye"></i> Ver mas
+            </button>
+
             <button class="btn-editar" onclick="prepararEdicion(${index})">
                 <i class="fa-solid fa-pen"></i> Editar
             </button>
@@ -48,6 +49,46 @@ function renderizarProductos() {
 
         cuerpoTabla.appendChild(fila);
     });
+}
+
+function verDetalle(index){
+
+    const producto = productos[index];
+
+    const imagenProducto = producto.imagen ? producto.imagen: "https://via.placeholder.com/200?text=Sin+Imagen";
+
+    Swal.fire({
+    title: producto.nombre,
+    width: 500,
+    html: `
+    <div style="text-align:center">
+
+    <img src="${imagenProducto}" 
+    style="width:200px;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px;">
+
+    <div style="text-align:left;font-size:15px">
+
+    <p><b>ID:</b> ${producto.id}</p>
+
+    <p><b>Descripción:</b><br>
+    ${producto.descripcion}</p>
+
+    <p><b>Categoría:</b> ${producto.categoria}</p>
+
+    <p><b>Precio:</b> $${producto.precio.toFixed(2)}</p>
+
+    <p><b>Stock:</b> ${producto.stock}</p>
+
+    <p><b>Estado:</b> ${producto.estado}</p>
+
+    </div>
+
+    </div>
+    `,
+    confirmButtonText: "Cerrar",
+    confirmButtonColor: "#6c4cff"
+    });
+
 }
 
 // NUEVA FUNCIÓN: Se ejecuta al presionar "Editar" en la tabla
@@ -253,17 +294,23 @@ function renderizarTabla(lista) {
         
         const fila = document.createElement("tr");
         fila.innerHTML = `
-            <td>${producto.id}</td>
             <td>${producto.nombre}</td>
-            <td>${producto.descripcion}</td>
             <td>${producto.categoria}</td>
             <td>$${producto.precio.toFixed(2)}</td>
             <td>${producto.stock}</td>
-            <td><img src="${producto.imagen}" width="50"></td>
-            <td>${producto.estado}</td>
+            <td class="${producto.estado === 'Activo' ? 'estado-activo' : 'estado-inactivo'}">
+            ${producto.estado}
+            </td>
             <td class="acciones">
-                <button class="btn-editar" onclick="prepararEdicion(${indexOriginal})"><i class="fa-solid fa-pen"></i></button>
-                <button class="btn-eliminar" onclick="prepararEliminacion(${indexOriginal})"><i class="fa-solid fa-trash"></i></button>
+                <button class="btn-ver" onclick="verDetalle(${indexOriginal})">
+                    <i class="fa-solid fa-eye"></i>Ver mas
+                </button>
+                <button class="btn-editar" onclick="prepararEdicion(${indexOriginal})">
+                    <i class="fa-solid fa-pen"></i>Editar
+                </button>
+                <button class="btn-eliminar" onclick="prepararEliminacion(${indexOriginal})">
+                    <i class="fa-solid fa-trash"></i>Eliminar
+                </button>
             </td>
         `;
         cuerpoTabla.appendChild(fila);
