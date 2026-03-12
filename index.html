@@ -19,6 +19,10 @@
 
         <!-- Modal -->
         <div id="modalProducto" class="modal">
+
+
+
+            
             <div class="modal-contenido">
                 <span class="cerrar" onclick="cerrarModal()">&times;</span>
                 <h2 id="tituloModal">Agregar Producto</h2>
@@ -61,7 +65,31 @@
                   
             </div>
         </div>
+<div class="acciones-superiores" style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+    <button class="btn-abrir" onclick="abrirModal()">
+        <i class="fa-solid fa-plus"></i> Agregar Producto
+    </button>
+    
+    <div style="flex-grow: 1; position: relative;">
+        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 10px; top: 12px; color: #aaa;"></i>
+        <input type="text" id="inputBusqueda" placeholder="Buscar por nombre (ABC)..." 
+               style="width: 100%; padding: 10px 10px 10px 35px; border-radius: 5px; border: 1px solid #ddd;">
+    </div>
 
+    <select id="selectFiltroCategoria" style="padding: 10px; border-radius: 5px; border: 1px solid #ddd; min-width: 200px;">
+        <option value="">Todas las categorías</option>
+        <option value="Computadoras de Escritorio">Computadoras de Escritorio</option>
+        <option value="Laptops">Laptops</option>
+        <option value="Componentes">Componentes</option>
+        <option value="Tarjetas Gráficas">Tarjetas Gráficas</option>
+        <option value="Procesadores">Procesadores</option>
+        <option value="Memoria RAM">Memoria RAM</option>
+        <option value="Almacenamiento">Almacenamiento</option>
+        <option value="Monitores">Monitores</option>
+        <option value="Periféricos">Periféricos</option>
+        <option value="Accesorios">Accesorios</option>
+    </select>
+</div>
         <!-- Contenedor de tabla -->
         <div class="tabla-contenedor">
             <table id="tablaProductos">

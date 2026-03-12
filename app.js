@@ -216,4 +216,63 @@ function cerrarModal() {
     document.getElementById("modalProducto").style.display = "none";
 }
 
+
+// Función para filtrar y ordenar por ABC
+function filtrarProductos() {
+    const textoBusqueda = document.getElementById("inputBusqueda").value.toLowerCase();
+    const categoriaSeleccionada = document.getElementById("selectFiltroCategoria").value;
+
+    // 1. Filtramos la lista
+    let productosFiltrados = productos.filter(p => {
+        const coincideNombre = p.nombre.toLowerCase().includes(textoBusqueda);
+        const coincideCat = categoriaSeleccionada === "" || p.categoria === categoriaSeleccionada;
+        return coincideNombre && coincideCat;
+    });
+
+    // 2. Si el usuario está buscando por nombre, ordenamos de A a Z
+    if (textoBusqueda !== "") {
+        productosFiltrados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    }
+
+    // 3. Dibujamos la tabla con los resultados
+    renderizarTabla(productosFiltrados);
+}
+
+// Función auxiliar para redibujar la tabla con cualquier lista (original o filtrada)
+function renderizarTabla(lista) {
+    cuerpoTabla.innerHTML = "";
+
+    if (lista.length === 0) {
+        cuerpoTabla.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:20px;">No se encontraron productos.</td></tr>`;
+        return;
+    }
+
+    lista.forEach((producto) => {
+        // Buscamos el índice original para que los botones de editar/borrar no fallen
+        const indexOriginal = productos.findIndex(p => p.id === producto.id);
+        
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td>${producto.id}</td>
+            <td>${producto.nombre}</td>
+            <td>${producto.descripcion}</td>
+            <td>${producto.categoria}</td>
+            <td>$${producto.precio.toFixed(2)}</td>
+            <td>${producto.stock}</td>
+            <td><img src="${producto.imagen}" width="50"></td>
+            <td>${producto.estado}</td>
+            <td class="acciones">
+                <button class="btn-editar" onclick="prepararEdicion(${indexOriginal})"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn-eliminar" onclick="prepararEliminacion(${indexOriginal})"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        `;
+        cuerpoTabla.appendChild(fila);
+    });
+}
+
+// Escuchadores de eventos (esto conecta el HTML con el JS)
+document.getElementById("inputBusqueda").addEventListener("input", filtrarProductos);
+document.getElementById("selectFiltroCategoria").addEventListener("change", filtrarProductos);
+
+
 renderizarProductos();
