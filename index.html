@@ -19,6 +19,7 @@
 
         <!-- Modal -->
         <div id="modalProducto" class="modal">
+            
             <div class="modal-contenido">
                 <span class="cerrar" onclick="cerrarModal()">&times;</span>
                 <h2 id="tituloModal">Agregar Producto</h2>
@@ -61,19 +62,36 @@
                   
             </div>
         </div>
+        <div class="filtros">
+            
+            <div class="buscador">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="inputBusqueda" placeholder="Buscar por nombre (ABC)...">
+            </div>
 
+            <select id="selectFiltroCategoria" class="filtro-categoria">
+                <option value="">Todas las categorías</option>
+                <option value="Computadoras de Escritorio">Computadoras de Escritorio</option>
+                <option value="Laptops">Laptops</option>
+                <option value="Componentes">Componentes</option>
+                <option value="Tarjetas Gráficas">Tarjetas Gráficas</option>
+                <option value="Procesadores">Procesadores</option>
+                <option value="Memoria RAM">Memoria RAM</option>
+                <option value="Almacenamiento">Almacenamiento</option>
+                <option value="Monitores">Monitores</option>
+                <option value="Periféricos">Periféricos</option>
+                <option value="Accesorios">Accesorios</option>
+            </select>
+        </div>
         <!-- Contenedor de tabla -->
         <div class="tabla-contenedor">
             <table id="tablaProductos">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nombre</th>
-                        <th>Descripción</th>
                         <th>Categoría</th>
                         <th>Precio</th>
                         <th>Stock</th>
-                        <th>Imagen</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
